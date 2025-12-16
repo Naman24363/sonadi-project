@@ -1,5 +1,7 @@
 from pathlib import Path
 from decouple import config, Csv
+import dj_database_url
+
 
 # =========================
 # Paths & core settings
@@ -73,19 +75,13 @@ TEMPLATES = [
 # Database — SUPABASE (POOLER SAFE)
 # =========================
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('SUPABASE_DB_NAME'),
-        'USER': config('SUPABASE_DB_USER'),
-        'PASSWORD': config('SUPABASE_DB_PASSWORD'),
-        'HOST': config('SUPABASE_DB_HOST'),
-        'PORT': config('SUPABASE_DB_PORT', cast=int),
-        'OPTIONS': {
-            'sslmode': 'require',
-        },
-        'CONN_MAX_AGE': 0,  # REQUIRED for Supabase pooler
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True,
+    )
 }
+
 
 # =========================
 # Static & media files
