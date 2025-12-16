@@ -19,23 +19,7 @@ ALLOWED_HOSTS = config(
 ).split(',')
 
 # =========================
-# Security
-# =========================
-SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=True, cast=bool)
-SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=True, cast=bool)
-CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=True, cast=bool)
-
-SECURE_HSTS_SECONDS = config('SECURE_HSTS_SECONDS', default=31536000, cast=int)
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
-
-CSRF_TRUSTED_ORIGINS = [
-    "https://sonadicharitabletrust.org",
-    "https://*.onrender.com",
-]
-
-# =========================
-# Installed apps & middleware
+# Installed apps
 # =========================
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -47,6 +31,9 @@ INSTALLED_APPS = [
     'core',
 ]
 
+# =========================
+# Middleware
+# =========================
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -59,6 +46,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'backend.urls'
+WSGI_APPLICATION = 'backend.wsgi.application'
 
 # =========================
 # Templates
@@ -79,10 +67,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'backend.wsgi.application'
-
 # =========================
-# Database — SUPABASE (SESSION POOLER / IPV4 SAFE)
+# Database — SUPABASE (POOLER SAFE)
 # =========================
 DATABASES = {
     'default': {
@@ -95,7 +81,7 @@ DATABASES = {
         'OPTIONS': {
             'sslmode': 'require',
         },
-        'CONN_MAX_AGE': 0,  # IMPORTANT for Supabase pooler
+        'CONN_MAX_AGE': 0,  # REQUIRED for Supabase pooler
     }
 }
 
@@ -138,9 +124,26 @@ RAZORPAY_KEY_ID = config('RAZORPAY_KEY_ID', default='')
 RAZORPAY_KEY_SECRET = config('RAZORPAY_KEY_SECRET', default='')
 
 # =========================
-# LOCAL DEVELOPMENT OVERRIDES
+# CSRF
 # =========================
-if DEBUG:
+CSRF_TRUSTED_ORIGINS = [
+    "https://sonadicharitabletrust.org",
+    "https://*.onrender.com",
+]
+
+# =========================
+# SECURITY — AUTO SWITCH (FIXES YOUR SSL BUG)
+# =========================
+IS_PRODUCTION = not DEBUG
+
+if IS_PRODUCTION:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+else:
     SECURE_SSL_REDIRECT = False
     SESSION_COOKIE_SECURE = False
     CSRF_COOKIE_SECURE = False
