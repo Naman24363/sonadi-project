@@ -6,7 +6,16 @@ venv/
 .vscode/           # VS Code project settings
 .idea/             # PyCharm project settings
 *.log              # Log files
+
 # ignore the virtual‑env
 venv/
 sonadi-backend/venv/
 .env
+
+# Backup files containing sensitive data
+backup.json
+*.backup.json
+
+# Database dumps
+*.sql
+*.dump

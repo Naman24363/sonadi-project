@@ -51,7 +51,7 @@
     </div>
 
     <!-- Main Content -->
-    <main class="contact-container">
+    <div class="contact-container">
 
       <!-- Card Wrapper Added -->
       <div class="contact-card-wrapper">
@@ -103,27 +103,27 @@
           <section>
             <h2>Contact Information</h2>
             <p>
-              <strong>📍 Address:</strong> Masudabad, Near Sai Baba Mandir,
-              Najafgarh, Delhi – 110043
+              <strong>📍 Address:</strong> {{ org_address_line1 }},
+              {{ org_address_line2 }}
             </p>
             <p>
               <strong>📞 Phone:</strong>
-              <a href="tel:+919212797696">+91 92127 97696</a>
+              <a href="tel:{{ org_phone|cut:' ' }}">{{ org_phone }}</a>
             </p>
             <p>
               <strong>✉️ Email:</strong>
-              <a href="mailto:sonadicharitytrust@gmail.com"
-                >sonadicharitytrust@gmail.com</a
+              <a href="mailto:{{ org_email }}"
+                >{{ org_email }}</a
               >
             </p>
             <p>
               <strong>📱 WhatsApp:</strong>
-              <a href="https://wa.me/8527666297" target="_blank">Message Us</a>
+              <a href="https://wa.me/{{ org_whatsapp }}" target="_blank">Message Us</a>
             </p>
             <p>
               <strong>📘 Facebook:</strong>
               <a
-                href="https://facebook.com/SonadiCharitableTrust"
+                href="{{ social_facebook }}"
                 target="_blank"
                 >Follow</a
               >
@@ -131,7 +131,7 @@
             <p>
               <strong>📸 Instagram:</strong>
               <a
-                href="https://instagram.com/sonadicharitabletrust"
+                href="{{ social_instagram }}"
                 target="_blank"
                 >@sonadicharitabletrust</a
               >
@@ -143,7 +143,7 @@
       <!-- Map -->
       <section class="map-section" style="margin-top: 2rem">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.5534170562214!2d77.00196517605963!3d28.613171284958636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d0fdb8c34e897%3A0xb284db0042082343!2sSONADI%20ANIMAL%20CARE%20CENTER!5e0!3m2!1sen!2sin!4v1748173037478!5m2!1sen!2sin"
+          src="{{ org_google_maps_embed }}"
           width="100%"
           height="450"
           style="border: 0"
@@ -152,6 +152,7 @@
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
       </section>
+    </div>
 {% endblock %}
 
 {% block extra_js %}

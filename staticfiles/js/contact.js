@@ -4,41 +4,22 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // Contact form specific functionality
-    const contactForm = document.getElementById('contactForm');
+    // Note: Contact form is handled by Django, this JS only adds enhancements
+    const contactForm = document.querySelector('form[method="POST"]');
     
-    if (contactForm) {
-        // Enhanced form validation for contact form
+    if (contactForm && contactForm.closest('.contact-card-wrapper')) {
+        // Add loading state on form submit (but let Django handle the actual submission)
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validate form using the global formValidation module
-            if (formValidation.validateForm(contactForm)) {
-                submitContactForm(contactForm);
+            const submitBtn = this.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                // Use setTimeout to allow form submission to proceed before disabling
+                setTimeout(function() {
+                    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Sending...';
+                    submitBtn.disabled = true;
+                }, 10);
             }
+            // Don't prevent default - let Django handle the form submission
         });
-    }
-
-    // Contact form submission
-    function submitContactForm(form) {
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        
-        // Show loading state
-        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Sending...';
-        submitBtn.disabled = true;
-        
-        // Simulate form submission (replace with actual submission logic)
-        setTimeout(() => {
-            // Show success message
-            showNotification('Message sent successfully! We will get back to you soon.', 'success');
-            
-            // Reset form
-            form.reset();
-            
-            // Reset button
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }, 2000);
     }
 
     // Show notification

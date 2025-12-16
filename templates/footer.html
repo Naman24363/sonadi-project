@@ -1,34 +1,34 @@
 <footer class="site-footer">
   <div class="footer-content">
     <div class="footer-section">
-      <p class="footer-title">Sonadi Charitable Trust</p>
+      <p class="footer-title">{{ org_name }}</p>
       <p>
         <a
-          href="https://maps.app.goo.gl/Sa318vMGxYiHeN6q6"
+          href="{{ org_google_maps_url }}"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Masudabad, Near Sai Baba Mandir,<br />
-          Najafgarh, Delhi - 110043
+          {{ org_address_line1 }},<br />
+          {{ org_address_line2 }}
         </a>
       </p>
-      <p>Phone: +91 9212797696</p>
-      <p>Email: sonadicharitytrust@gmail.com</p>
+      <p>Phone: {{ org_phone }}</p>
+      <p>Email: {{ org_email }}</p>
     </div>
 
     <div class="footer-section">
       <p>Follow us on:</p>
-      <a href="https://www.facebook.com/SonadiCharitableTrust/" target="_blank"
+      <a href="{{ social_facebook }}" target="_blank"
         >Facebook</a
       >
       <span> | </span>
-      <a href="https://www.instagram.com/sonadicharitabletrust/" target="_blank"
+      <a href="{{ social_instagram }}" target="_blank"
         >Instagram</a
       >
     </div>
   </div>
 
   <div class="footer-bottom">
-    © 2025 Sonadi Charitable Trust. All rights reserved.
+    © 2025 {{ org_name }}. All rights reserved.
   </div>
 </footer>

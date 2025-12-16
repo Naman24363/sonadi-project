@@ -104,16 +104,17 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Show loading state
             const submitBtn = this.querySelector('button[type="submit"]');
+            const form = this;
+            
             if (submitBtn) {
-                const originalText = submitBtn.innerHTML;
                 submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
                 submitBtn.disabled = true;
-                
-                // Small delay to show loading state, then submit
-                setTimeout(() => {
-                    this.submit();
-                }, 500);
             }
+            
+            // Small delay to show loading state, then submit
+            setTimeout(() => {
+                form.submit();
+            }, 100);
         });
     }
 

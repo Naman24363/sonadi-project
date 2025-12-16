@@ -32,11 +32,11 @@ def contact(request):
         if form.is_valid():
             form.save()
 
-            # Prepare email
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            phone = form.cleaned_data['phone']
-            message = form.cleaned_data['message']
+            # Prepare email - sanitize user input
+            name = str(form.cleaned_data['name']).strip()
+            email = str(form.cleaned_data['email']).strip()
+            phone = str(form.cleaned_data['phone']).strip()
+            message = str(form.cleaned_data['message']).strip()
 
             full_message = f"""
 New Contact Form Submission:
@@ -49,16 +49,21 @@ Message:
 {message}
 """
 
-            email_msg = EmailMessage(
-                subject=f"New message from {name}",
-                body=full_message,
-                from_email='sonadicharitytrust@gmail.com',
-                to=['sonadicharitytrust@gmail.com'],
-                reply_to=[email],
-            )
-            email_msg.send(fail_silently=False)
-
-            messages.success(request, "Your message has been sent successfully!")
+            try:
+                email_msg = EmailMessage(
+                    subject=f"New message from {name}",
+                    body=full_message,
+                    from_email=settings.EMAIL_HOST_USER,
+                    to=[settings.ADMIN_EMAIL],
+                    reply_to=[email],
+                )
+                email_msg.send(fail_silently=False)
+                messages.success(request, "Your message has been sent successfully!")
+            except Exception as e:
+                # Log the error but still show success since message was saved
+                print(f"Email sending failed: {e}")
+                messages.success(request, "Your message has been received! We'll get back to you soon.")
+            
             return redirect('contact')
     else:
         form = ContactForm()
@@ -72,13 +77,13 @@ def donate(request):
 # Donate Razorpay Integration View
 def donate_payment(request):
     if request.method == 'POST':
-        # Get donation details from form
-        amount = request.POST.get('amount')
-        donor_name = request.POST.get('donor_name', '')
-        donor_email = request.POST.get('donor_email', '')
-        donor_phone = request.POST.get('donor_phone', '')
-        donor_message = request.POST.get('donor_message', '')
-        purpose = request.POST.get('purpose', 'general')
+        # Get donation details from form and sanitize
+        amount = request.POST.get('amount', '')
+        donor_name = str(request.POST.get('donor_name', '')).strip()
+        donor_email = str(request.POST.get('donor_email', '')).strip()
+        donor_phone = str(request.POST.get('donor_phone', '')).strip()
+        donor_message = str(request.POST.get('donor_message', '')).strip()
+        purpose = str(request.POST.get('purpose', 'general')).strip()
         
         # Validate amount
         try:
@@ -92,6 +97,11 @@ def donate_payment(request):
             
         except (ValueError, TypeError):
             messages.error(request, "Invalid donation amount")
+            return redirect('donate')
+        
+        # Check if Razorpay is configured
+        if not settings.RAZORPAY_KEY_ID or not settings.RAZORPAY_KEY_SECRET:
+            messages.error(request, "Payment gateway is not configured. Please use bank transfer for donations.")
             return redirect('donate')
         
         # Create Razorpay order
@@ -212,7 +222,7 @@ Donation Details:
 Your contribution helps us continue our mission of animal welfare and community service. 
 We are grateful for your support in making a difference in the lives of animals in need.
 
-For any queries regarding your donation, please contact us at sonadicharitytrust@gmail.com.
+For any queries regarding your donation, please contact us at {settings.ORG_EMAIL}.
 
 With heartfelt gratitude,
 Sonadi Charitable Trust Team
@@ -224,9 +234,9 @@ This is an automated receipt. Please save this email for your records.
             email_msg = EmailMessage(
                 subject=email_subject,
                 body=email_body,
-                from_email='sonadicharitytrust@gmail.com',
+                from_email=settings.EMAIL_HOST_USER,
                 to=[donor_email],
-                reply_to=['sonadicharitytrust@gmail.com']
+                reply_to=[settings.ADMIN_EMAIL]
             )
             email_msg.send(fail_silently=True)
             
@@ -243,12 +253,13 @@ def testimonial(request):
             form.save()
 
             try:
-                title = form.cleaned_data['title']
-                message = form.cleaned_data['message']
-                name = form.cleaned_data['name']
-                animal_name = form.cleaned_data['animal_name']
-                email = form.cleaned_data['email']
-                phone = form.cleaned_data['phone']
+                # Sanitize user input
+                title = str(form.cleaned_data['title']).strip()
+                message = str(form.cleaned_data['message']).strip()
+                name = str(form.cleaned_data['name']).strip()
+                animal_name = str(form.cleaned_data['animal_name']).strip()
+                email = str(form.cleaned_data['email']).strip()
+                phone = str(form.cleaned_data['phone']).strip()
 
                 full_message = f"""
 New Testimonial Submitted:
@@ -266,17 +277,17 @@ Message:
                 email_msg = EmailMessage(
                     subject=f"New Testimonial from {name}",
                     body=full_message,
-                    from_email='sonadicharitytrust@gmail.com',
-                    to=['sonadicharitytrust@gmail.com'],
+                    from_email=settings.EMAIL_HOST_USER,
+                    to=[settings.ADMIN_EMAIL],
                     reply_to=[email]
                 )
                 email_msg.send(fail_silently=False)
 
-                messages.success(request, "Thanks for your testimonial! It will appear once approved.")
-                return redirect('testimonial')
-
             except Exception as e:
-                messages.error(request, f"Submission saved, but email failed: {e}")
+                print(f"Testimonial email sending failed: {e}")
+            
+            messages.success(request, "Thanks for your testimonial! It will appear once approved.")
+            return redirect('testimonial')
         else:
             print("Form is invalid")
             print(form.errors)
@@ -292,10 +303,11 @@ def volunteer(request):
         if form.is_valid():
             form.save()
 
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            phone = form.cleaned_data['phone']
-            message = form.cleaned_data['message']
+            # Sanitize user input
+            name = str(form.cleaned_data['name']).strip()
+            email = str(form.cleaned_data['email']).strip()
+            phone = str(form.cleaned_data['phone']).strip()
+            message = str(form.cleaned_data['message']).strip()
 
             email_content = f"""
 New Volunteer Submission:
@@ -308,14 +320,17 @@ Message:
 {message}
 """
 
-            email_msg = EmailMessage(
-                subject=f"New Volunteer Request from {name}",
-                body=email_content,
-                from_email='sonadicharitytrust@gmail.com',
-                to=['sonadicharitytrust@gmail.com'],
-                reply_to=[email]
-            )
-            email_msg.send(fail_silently=False)
+            try:
+                email_msg = EmailMessage(
+                    subject=f"New Volunteer Request from {name}",
+                    body=email_content,
+                    from_email=settings.EMAIL_HOST_USER,
+                    to=[settings.ADMIN_EMAIL],
+                    reply_to=[email]
+                )
+                email_msg.send(fail_silently=False)
+            except Exception as e:
+                print(f"Volunteer email sending failed: {e}")
 
             messages.success(request, "Thank you for volunteering with us!")
             return redirect('volunteer')
@@ -331,15 +346,16 @@ def adopt_a_dog(request):
         if form.is_valid():
             form.save()
 
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            phone = form.cleaned_data['phone']
-            reason = form.cleaned_data['reason']
-            animal_name = form.cleaned_data['animal_name']
-            animal_age = form.cleaned_data['animal_age']
-            animal_gender = form.cleaned_data['animal_gender']
-            animal_breed = form.cleaned_data['animal_breed']
-            animal_personality = form.cleaned_data['animal_personality']
+            # Sanitize user input
+            name = str(form.cleaned_data['name']).strip()
+            email = str(form.cleaned_data['email']).strip()
+            phone = str(form.cleaned_data['phone']).strip()
+            reason = str(form.cleaned_data['reason']).strip()
+            animal_name = str(form.cleaned_data['animal_name']).strip()
+            animal_age = str(form.cleaned_data['animal_age']).strip()
+            animal_gender = str(form.cleaned_data['animal_gender']).strip()
+            animal_breed = str(form.cleaned_data['animal_breed']).strip()
+            animal_personality = str(form.cleaned_data['animal_personality']).strip()
 
             message = f"""
 New Adoption Request:
@@ -357,14 +373,17 @@ Breed: {animal_breed}
 Personality: {animal_personality}
 """
 
-            email_msg = EmailMessage(
-                subject=f"Adoption Form Submission from {name}",
-                body=message,
-                from_email='sonadicharitytrust@gmail.com',
-                to=['sonadicharitytrust@gmail.com'],
-                reply_to=[email]
-            )
-            email_msg.send(fail_silently=False)
+            try:
+                email_msg = EmailMessage(
+                    subject=f"Adoption Form Submission from {name}",
+                    body=message,
+                    from_email=settings.EMAIL_HOST_USER,
+                    to=[settings.ADMIN_EMAIL],
+                    reply_to=[email]
+                )
+                email_msg.send(fail_silently=False)
+            except Exception as e:
+                print(f"Adoption email sending failed: {e}")
 
             messages.success(request, "Your adoption request has been submitted!")
             return redirect(reverse('adopt_a_dog') + '#thanks')
@@ -380,7 +399,8 @@ def activities(request):
 
 # Static Page Views
 def gallery(request):
-    return render(request, 'gallery.html')
+    # Redirect to photos page since gallery.html doesn't exist
+    return render(request, 'photos.html')
 
 def founders(request):
     return render(request, 'founders.html')

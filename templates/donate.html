@@ -477,15 +477,15 @@ Charitable Trust{% endblock %} {% block page_css %}
     <div class="bank-details-row">
       <div class="bank-details-text">
         <p>
-          <strong>Sonadi Charitable Trust</strong><br />
-          Bank Name: Indian Bank<br />
-          Branch: Nazafgarh<br />
-          Address: Sainik Enclave, Maksudabad, Nazafgarh, New Delhi<br />
-          Pincode: 110043<br />
-          Account Holder: Sonadi Charitable Trust<br />
-          Account Number: 6531177186<br />
-          IFSC Code: IDIB000N137<br />
-          CBS Code: 02250<br /><br />
+          <strong>{{ bank_account_holder }}</strong><br />
+          Bank Name: {{ bank_name }}<br />
+          Branch: {{ bank_branch }}<br />
+          Address: {{ bank_address }}<br />
+          Pincode: {{ org_pincode }}<br />
+          Account Holder: {{ bank_account_holder }}<br />
+          Account Number: {{ bank_account_number }}<br />
+          IFSC Code: {{ bank_ifsc_code }}<br />
+          CBS Code: {{ bank_cbs_code }}<br /><br />
           Please mention <strong>“Donation”</strong> in the remarks.<br /><br />
           <strong>Important Notice:</strong><br />
           At this time, we are unable to provide 80G tax exemption certificates
@@ -495,8 +495,8 @@ Charitable Trust{% endblock %} {% block page_css %}
           lives of animals in need.<br /><br />
           For donation confirmation and receipt, please email your transaction
           details to <br />
-          <a href="mailto:sonadicharitytrust@gmail.com"
-            >sonadicharitytrust@gmail.com</a
+          <a href="mailto:{{ org_email }}"
+            >{{ org_email }}</a
           >
         </p>
       </div>

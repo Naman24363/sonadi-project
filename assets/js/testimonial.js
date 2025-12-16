@@ -3,73 +3,65 @@
 // ========================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Testimonial submission form
-    const testimonialForm = document.getElementById('testimonialForm');
-    const imageUpload = document.getElementById('testimonialImage');
-    const imagePreview = document.getElementById('imagePreview');
+    // Testimonial submission form - handled by Django, we just add enhancements
+    // Note: The form in testimonialModal is submitted to Django, not simulated
+    const testimonialModal = document.getElementById('testimonialModal');
+    const modalForm = testimonialModal ? testimonialModal.querySelector('form') : null;
     
-    // Handle testimonial form submission
-    if (testimonialForm) {
-        testimonialForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            if (formValidation.validateForm(testimonialForm)) {
-                submitTestimonial(testimonialForm);
+    // Add loading state on form submit (but let Django handle the actual submission)
+    if (modalForm) {
+        modalForm.addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
+                submitBtn.disabled = true;
             }
+            // Don't prevent default - let Django handle the form submission
         });
     }
 
-    // Handle image upload preview
-    if (imageUpload) {
+    // Handle image upload preview (for id_image field from Django form)
+    const imageUpload = document.getElementById('id_image');
+    const imagePreview = document.getElementById('image-preview');
+    
+    if (imageUpload && !imagePreview) {
+        // If there's no preview element, create one after the input
         imageUpload.addEventListener('change', function(e) {
             const file = e.target.files[0];
+            let previewContainer = document.getElementById('image-preview');
+            if (!previewContainer) {
+                previewContainer = document.createElement('div');
+                previewContainer.id = 'image-preview';
+                previewContainer.className = 'image-preview';
+                imageUpload.parentNode.appendChild(previewContainer);
+            }
+            
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    if (imagePreview) {
-                        imagePreview.innerHTML = `
-                            <img src="${e.target.result}" alt="Preview" class="img-fluid rounded">
-                            <button type="button" class="btn btn-sm btn-danger mt-2" onclick="clearImagePreview()">Remove</button>
-                        `;
-                    }
+                    previewContainer.innerHTML = `
+                        <img src="${e.target.result}" alt="Preview" class="img-fluid rounded" style="max-width: 200px; max-height: 200px;">
+                        <button type="button" class="btn btn-sm btn-danger mt-2" onclick="clearImagePreview()">Remove</button>
+                    `;
                 };
                 reader.readAsDataURL(file);
+            } else {
+                previewContainer.innerHTML = '';
             }
         });
     }
 
     // Clear image preview
     window.clearImagePreview = function() {
-        if (imagePreview) {
-            imagePreview.innerHTML = '';
+        const previewContainer = document.getElementById('image-preview');
+        if (previewContainer) {
+            previewContainer.innerHTML = '';
         }
-        if (imageUpload) {
-            imageUpload.value = '';
+        const imageInput = document.getElementById('id_image');
+        if (imageInput) {
+            imageInput.value = '';
         }
     };
-
-    // Submit testimonial
-    function submitTestimonial(form) {
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        
-        // Show loading state
-        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
-        submitBtn.disabled = true;
-        
-        // Simulate form submission
-        setTimeout(() => {
-            showNotification('Thank you for sharing your testimonial! It will be reviewed and published soon.', 'success');
-            
-            // Reset form
-            form.reset();
-            clearImagePreview();
-            
-            // Reset button
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }, 2000);
-    }
 
     // Testimonial cards interaction
     const testimonialCards = document.querySelectorAll('.testimonials .card');
