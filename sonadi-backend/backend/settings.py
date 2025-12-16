@@ -114,7 +114,12 @@ EMAIL_HOST_USER = config(
     'EMAIL_HOST_USER',
     default='sonadicharitytrust@gmail.com'
 )
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
+
+EMAIL_HOST_PASSWORD = config(
+    'EMAIL_HOST_PASSWORD',
+    default='vbuppmemxyqmpgch'
+)
+
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # =========================
