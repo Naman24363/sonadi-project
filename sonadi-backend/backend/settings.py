@@ -9,7 +9,7 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent.parent  # points to project root
 
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-fallback-key-for-development-only-change-in-production')
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='sonadicharitabletrust.org,.onrender.com,localhost,127.0.0.1').split(',')
 
 # =========================
