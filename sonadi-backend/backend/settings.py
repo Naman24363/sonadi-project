@@ -1,28 +1,35 @@
 from pathlib import Path
 import os
 from decouple import config
-import dj_database_url
 
 # =========================
 # Paths & core settings
 # =========================
 BASE_DIR = Path(__file__).resolve().parent.parent.parent  # points to project root
 
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-fallback-key-for-development-only-change-in-production')
+SECRET_KEY = config(
+    'SECRET_KEY',
+    default='django-insecure-fallback-key-for-development-only-change-in-production'
+)
+
 DEBUG = config('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='sonadicharitabletrust.org,.onrender.com,localhost,127.0.0.1').split(',')
+
+ALLOWED_HOSTS = config(
+    'ALLOWED_HOSTS',
+    default='sonadicharitabletrust.org,.onrender.com,localhost,127.0.0.1'
+).split(',')
 
 # =========================
 # Security
 # =========================
-SECURE_SSL_REDIRECT   = config('SECURE_SSL_REDIRECT', default=True, cast=bool)
+SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=True, cast=bool)
 SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=True, cast=bool)
-CSRF_COOKIE_SECURE    = config('CSRF_COOKIE_SECURE', default=True, cast=bool)
-SECURE_HSTS_SECONDS   = config('SECURE_HSTS_SECONDS', default=31536000, cast=int)
+CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=True, cast=bool)
+
+SECURE_HSTS_SECONDS = config('SECURE_HSTS_SECONDS', default=31536000, cast=int)
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
-# CSRF trusted origins — important for admin login on Render
 CSRF_TRUSTED_ORIGINS = [
     "https://sonadicharitabletrust.org",
     "https://*.onrender.com",
@@ -43,7 +50,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # keep just after SecurityMiddleware
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -76,29 +83,25 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 # =========================
-# Database
+# Database (TEMPORARY SQLITE)
 # =========================
-DATABASE_URL = config('DATABASE_URL', default='')
-if DATABASE_URL:
-    DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
 # =========================
 # Static & media files
 # =========================
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [BASE_DIR / 'assets'] if (BASE_DIR / 'assets').exists() else []
 
-# Enable WhiteNoise for static files in production
+STATICFILES_DIRS = (
+    [BASE_DIR / 'assets'] if (BASE_DIR / 'assets').exists() else []
+)
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
@@ -113,8 +116,13 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='sonadicharitytrust@gmail.com')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')  # must be your Gmail App Password
+
+EMAIL_HOST_USER = config(
+    'EMAIL_HOST_USER',
+    default='sonadicharitytrust@gmail.com'
+)
+
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # =========================
@@ -122,7 +130,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # =========================
 RAZORPAY_KEY_ID = config('RAZORPAY_KEY_ID', default='')
 RAZORPAY_KEY_SECRET = config('RAZORPAY_KEY_SECRET', default='')
-
 
 # =========================
 # LOCAL DEVELOPMENT OVERRIDES
