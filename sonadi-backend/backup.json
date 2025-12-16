@@ -1,0 +1,266 @@
+[
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$8EiZvPOH3SP1VDrW9StWSf$W//w6JC8FHHzhtk6SJWfsL1kBfeo3pSFvfTm6FKrtYw=",
+    "last_login": "2025-10-18T14:07:43.069Z",
+    "is_superuser": true,
+    "username": "naman",
+    "first_name": "",
+    "last_name": "",
+    "email": "chugnaman06@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-10-18T14:07:29.589Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$48MdfQs2nI7ZqJaiPLJRIm$Q9TNExqp6S3GrNr0Bt7gbnb27/2ndvXH6Tx++7bth14=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "Naman",
+    "first_name": "",
+    "last_name": "",
+    "email": "chugnaman06@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-10-21T08:48:34.552Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "5h4nbya8l59yu7lcp8oykwnbfmip704j",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSEwHfCxdN9vIDMwSNVAUtqV8d-1SRe6veec-1KB1qWEtcscpqQuyqrD78YUH1I3kO5Ub03HVpd5Yr0peqddjy3J87q7fweFevnWaBEiubOxbgAEyZzJD_YEAgY9ZW8zoMmSGHxkGIyIxHhkkxwTO1TvD9FxODY:1vA7ax:BZrf64AF5py4WTtF3baxUDNyJuHv6C7-_i2V841pOBY",
+    "expire_date": "2025-11-01T14:07:43.074Z"
+  }
+},
+{
+  "model": "core.testimonial",
+  "pk": 1,
+  "fields": {
+    "title": "Sheru found love on our street",
+    "message": "Sheru was a street dog who lived near our house for many years. He was friendly and always wagged his tail whenever he saw us, but he never had a proper place to stay. He slept on the footpath and sometimes went hungry for days. Once, he got hurt near his leg and started limping. We felt bad but did not know what to do.\r\nThen the team from Sonadi Charitable Trust came to our area. They cleaned his wound, gave him medicine, and told us that they would come again for his vaccination. They also explained how to care for street dogs and keep water bowls for them in summer.\r\nWithin a few weeks, Sheru looked better. His fur became shiny, and his limp went away. He now stays near our gate, and we all feed him. Even the children in the lane love playing with him. he guards our street and barks at strangers, but never hurts anyone.",
+    "name": "Sunita",
+    "animal_name": "Sheru",
+    "email": "Sunitaverma@gmail.com",
+    "phone": "8527666297",
+    "image_url": null,
+    "image": "testimonials/1715363067146_tumD7gH.jpg",
+    "approved": true,
+    "submitted_at": "2025-10-18T15:16:17.622Z"
+  }
+},
+{
+  "model": "core.testimonial",
+  "pk": 2,
+  "fields": {
+    "title": "Rocky smiles every day now",
+    "message": "Rocky has been in our colony for a long time. He used to run behind cars and look for food in dustbins. Sometimes people got scared, but he was never harmful. He only wanted love. When Sonadi Charitable Trust visited for their animal care camp, they saw Rocky and gave him a proper check-up.\r\nThey vaccinated him, gave him a tag on his collar, and told us how to feed him and keep water for him. Later, they came again and sterilised him safely so that he could live a better life. He stayed under care for a few days, then returned to the same lane.\r\nNow Rocky looks strong and healthy. He waits for kids to come from school, plays with them, and sits near the shops. People in the market call him by name. Seeing him smile makes everyone happy.\r\nWe realised how a little help from Sonadi changed not just one dogÆs life but also our thinking. We all feel responsible now for the animals who live near us.",
+    "name": "Rahul",
+    "animal_name": "Rocky",
+    "email": "Rahuljohari@gmail.com",
+    "phone": "8527666297",
+    "image_url": null,
+    "image": "testimonials/pg28_pcjMTFK.jpg",
+    "approved": true,
+    "submitted_at": "2025-10-18T15:18:06.001Z"
+  }
+},
+{
+  "model": "core.testimonial",
+  "pk": 5,
+  "fields": {
+    "title": "Candice was rescued just in time",
+    "message": "Candice has been with our family for more than two years. She is gentle, loving, and very close to our children. One morning, while playing in the garden, she suddenly slipped and hurt her leg badly. She could not stand and was crying in pain. We were terrified and did not know what to do.\r\nWe called Sonadi Charitable Trust for help. Their team arrived quickly with a doctor and a first aid kit. They treated Candice carefully and took her for an X-ray. It was a minor fracture, and they promised to help till she recovered fully. They visited us often to change the bandage and make sure she was healing well.\r\nWith their care and guidance, Candice recovered completely. She started walking again and slowly returned to her cheerful self. Seeing her wag her tail again after so many days made us all emotional.\r\nWe are very thankful to Sonadi for their quick help and kindness. They treated Candice like their own and supported us like a family.",
+    "name": "Anita",
+    "animal_name": "Candice",
+    "email": "Rahuljohari@gmail.com",
+    "phone": "8527666297",
+    "image_url": null,
+    "image": "testimonials/pexels-rishu-bhosale-40372778-8574738_84EDhk1.jpg",
+    "approved": true,
+    "submitted_at": "2025-10-18T15:19:02.565Z"
+  }
+},
+{
+  "model": "core.testimonial",
+  "pk": 6,
+  "fields": {
+    "title": "Ash healed and runs again",
+    "message": "Ash is our familyÆs loyal companion. He came to us as a small puppy and has grown up with our kids. Last year, he got a deep cut on his paw after stepping on some broken glass in the park. We were worried and called Sonadi Charitable Trust for guidance.\r\nTheir team immediately arranged a doctor visit. Ash was treated, given stitches, and put on antibiotics. Sonadi also checked up on him every few days, asking if he was eating properly and whether his bandage was fine. They even guided us on how to make a small soft boot for him so that he could walk comfortably during healing.\r\nWithin a few weeks, Ash was back to running around the house, full of energy and joy. The children were so happy to see him playing again.\r\nWe realised how much care and support Sonadi gives not only to stray animals but also to pets like Ash. Their help made a big difference to our family.",
+    "name": "Vishal",
+    "animal_name": "Ash",
+    "email": "Rahuljohari@gmail.com",
+    "phone": "8527666297",
+    "image_url": null,
+    "image": "testimonials/pg29_kzz17RK.jpg",
+    "approved": true,
+    "submitted_at": "2025-10-18T15:19:44.046Z"
+  }
+},
+{
+  "model": "core.testimonial",
+  "pk": 7,
+  "fields": {
+    "title": "Ace turned our house into a home",
+    "message": "Ace has been part of our family since he was a small puppy. He is playful, curious, and full of love. When he was around six months old, he suddenly stopped eating and looked weak. We were worried because we did not know what had gone wrong.\r\nWe contacted Sonadi Charitable Trust, and they immediately guided us on what to do. They arranged for a vet visit, gave us proper advice about diet and medicine, and even came home to check on him. Their team treated Ace with so much affection that he felt safe and comfortable right away.\r\nWithin a few days, he started eating again and became his usual happy self. Sonadi also taught us how to take better care of him, about regular vaccinations, deworming, and minor signs to watch out for.\r\nToday, Ace is strong, healthy, and brings endless joy to our home. We are genuinely thankful to Sonadi for always being there like a friend who cares deeply for both dogs and families.",
+    "name": "Akul",
+    "animal_name": "Ace",
+    "email": "Rahuljohari@gmail.com",
+    "phone": "8527666297",
+    "image_url": null,
+    "image": "testimonials/testiminial_to_add_GrqYg8f.jpg",
+    "approved": true,
+    "submitted_at": "2025-10-18T15:20:43.945Z"
+  }
+},
+{
+  "model": "core.testimonial",
+  "pk": 8,
+  "fields": {
+    "title": "Ace turned our house into a home",
+    "message": "Ace has been part of our family since he was a small puppy. He is playful, curious, and full of love. When he was around six months old, he suddenly stopped eating and looked weak. We were worried because we did not know what had gone wrong.\r\nWe contacted Sonadi Charitable Trust, and they immediately guided us on what to do. They arranged for a vet visit, gave us proper advice about diet and medicine, and even came home to check on him. Their team treated Ace with so much affection that he felt safe and comfortable right away.\r\nWithin a few days, he started eating again and became his usual happy self. Sonadi also taught us how to take better care of him, about regular vaccinations, deworming, and minor signs to watch out for.\r\nToday, Ace is strong, healthy, and brings endless joy to our home. We are genuinely thankful to Sonadi for always being there like a friend who cares deeply for both dogs and families.",
+    "name": "Akul",
+    "animal_name": "Ace",
+    "email": "Rahuljohari@gmail.com",
+    "phone": "8527666297",
+    "image_url": null,
+    "image": "testimonials/testiminial_to_add_9FAJUfH.jpg",
+    "approved": false,
+    "submitted_at": "2025-10-18T15:21:51.436Z"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2025-10-18T15:21:32.855Z",
+    "user": [
+      "naman"
+    ],
+    "content_type": [
+      "core",
+      "testimonial"
+    ],
+    "object_id": "4",
+    "object_repr": "Anita û Candice was rescued just in time",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2025-10-18T15:21:32.855Z",
+    "user": [
+      "naman"
+    ],
+    "content_type": [
+      "core",
+      "testimonial"
+    ],
+    "object_id": "3",
+    "object_repr": "Anita û Candice was rescued just in time",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2025-10-18T15:21:37.221Z",
+    "user": [
+      "naman"
+    ],
+    "content_type": [
+      "core",
+      "testimonial"
+    ],
+    "object_id": "7",
+    "object_repr": "Akul û Ace turned our house into a home",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Approved\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2025-10-18T15:21:40.531Z",
+    "user": [
+      "naman"
+    ],
+    "content_type": [
+      "core",
+      "testimonial"
+    ],
+    "object_id": "6",
+    "object_repr": "Vishal û Ash healed and runs again",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Approved\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2025-10-18T15:21:42.434Z",
+    "user": [
+      "naman"
+    ],
+    "content_type": [
+      "core",
+      "testimonial"
+    ],
+    "object_id": "5",
+    "object_repr": "Anita û Candice was rescued just in time",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Approved\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2025-10-18T15:21:44.536Z",
+    "user": [
+      "naman"
+    ],
+    "content_type": [
+      "core",
+      "testimonial"
+    ],
+    "object_id": "2",
+    "object_repr": "Rahul û Rocky smiles every day now",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Approved\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2025-10-18T15:21:46.183Z",
+    "user": [
+      "naman"
+    ],
+    "content_type": [
+      "core",
+      "testimonial"
+    ],
+    "object_id": "1",
+    "object_repr": "Sunita û Sheru found love on our street",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Approved\"]}}]"
+  }
+}
+]
