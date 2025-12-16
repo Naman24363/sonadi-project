@@ -1,11 +1,10 @@
 from pathlib import Path
-import os
 from decouple import config
 
 # =========================
 # Paths & core settings
 # =========================
-BASE_DIR = Path(__file__).resolve().parent.parent.parent  # points to project root
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = config(
     'SECRET_KEY',
@@ -83,12 +82,20 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 # =========================
-# Database (TEMPORARY SQLITE)
+# Database — SUPABASE (SESSION POOLER / IPV4 SAFE)
 # =========================
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('SUPABASE_DB_NAME'),
+        'USER': config('SUPABASE_DB_USER'),
+        'PASSWORD': config('SUPABASE_DB_PASSWORD'),
+        'HOST': config('SUPABASE_DB_HOST'),
+        'PORT': config('SUPABASE_DB_PORT', cast=int),
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
+        'CONN_MAX_AGE': 0,  # IMPORTANT for Supabase pooler
     }
 }
 
@@ -121,7 +128,6 @@ EMAIL_HOST_USER = config(
     'EMAIL_HOST_USER',
     default='sonadicharitytrust@gmail.com'
 )
-
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
