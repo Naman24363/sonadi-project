@@ -79,14 +79,16 @@ DATABASES = {
         default=config('DATABASE_URL'),
         conn_max_age=60,
         conn_health_checks=True,
-        options={
-            'sslmode': 'require',
-            'keepalives': 1,
-            'keepalives_idle': 30,
-            'keepalives_interval': 10,
-            'keepalives_count': 5,
-        }
     )
+}
+
+# Add SSL keepalive options to database connection
+DATABASES['default']['OPTIONS'] = {
+    'sslmode': 'require',
+    'keepalives': 1,
+    'keepalives_idle': 30,
+    'keepalives_interval': 10,
+    'keepalives_count': 5,
 }
 
 
