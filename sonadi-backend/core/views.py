@@ -4,6 +4,8 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
+from django.core.paginator import Paginator
+from django.views.decorators.cache import cache_page
 
 import razorpay
 
@@ -15,6 +17,7 @@ from .models import (
 )
 
 # Home Page View
+@cache_page(60 * 5)  # Cache for 5 minutes
 def home(request):
     stats = HomepageStats.objects.first()
     values = CoreValue.objects.filter(show_on_homepage=True)
@@ -245,7 +248,15 @@ This is an automated receipt. Please save this email for your records.
 
 # Testimonial Page View
 def testimonial(request):
-    testimonials = Testimonial.objects.filter(approved=True)
+    # Optimize query: use select_related for foreign keys if any
+    testimonials_queryset = Testimonial.objects.filter(approved=True).only(
+        'id', 'title', 'name', 'animal_name', 'image', 'image_url', 'message'
+    )
+    
+    # Paginate: 6 testimonials per page
+    paginator = Paginator(testimonials_queryset, 6)
+    page_number = request.GET.get('page', 1)
+    testimonials = paginator.get_page(page_number)
 
     if request.method == 'POST':
         form = TestimonialForm(request.POST, request.FILES)

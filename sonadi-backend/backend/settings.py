@@ -77,7 +77,7 @@ TEMPLATES = [
 DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL'),
-        conn_max_age=60,
+        conn_max_age=600,  # Increased from 60 to 600 seconds to reduce connection overhead
         conn_health_checks=True,
     )
 }
@@ -89,7 +89,21 @@ DATABASES['default']['OPTIONS'] = {
     'keepalives_idle': 30,
     'keepalives_interval': 10,
     'keepalives_count': 5,
+    'connect_timeout': 10,  # Prevent hanging connections
 }
+
+# =========================
+# Caching (In-Memory for Development/Small Deployments)
+# =========================
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'sonadi-cache',
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000
+        }
+    }
+
 
 
 # =========================
