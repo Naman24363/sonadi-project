@@ -72,13 +72,20 @@ TEMPLATES = [
 ]
 
 # =========================
-# Database — SUPABASE (POOLER SAFE)
+# Database — SUPABASE (POOLER OPTIMIZED)
 # =========================
 DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL'),
-        conn_max_age=600,
-        ssl_require=True,
+        conn_max_age=60,
+        conn_health_checks=True,
+        options={
+            'sslmode': 'require',
+            'keepalives': 1,
+            'keepalives_idle': 30,
+            'keepalives_interval': 10,
+            'keepalives_count': 5,
+        }
     )
 }
 
