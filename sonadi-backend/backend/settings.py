@@ -103,8 +103,7 @@ CACHES = {
             'MAX_ENTRIES': 1000
         }
     }
-
-
+}
 
 # =========================
 # Static & media files
