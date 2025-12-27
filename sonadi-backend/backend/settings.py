@@ -84,9 +84,11 @@ DATABASES = {
         "OPTIONS": {
             "sslmode": "require",
             "connect_timeout": 10,
+            "options": "-c statement_timeout=5000",
         },
     }
 }
+
 
 # =========================
 # Caching (In-Memory for Development/Small Deployments)
