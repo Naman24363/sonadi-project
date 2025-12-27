@@ -71,25 +71,20 @@ TEMPLATES = [
     },
 ]
 
-# =========================
-# Database — SUPABASE (POOLER OPTIMIZED)
-# =========================
 DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL'),
-        conn_max_age=600,  # Increased from 60 to 600 seconds to reduce connection overhead
-        conn_health_checks=True,
-    )
-}
-
-# Add SSL keepalive options to database connection
-DATABASES['default']['OPTIONS'] = {
-    'sslmode': 'require',
-    'keepalives': 1,
-    'keepalives_idle': 30,
-    'keepalives_interval': 10,
-    'keepalives_count': 5,
-    'connect_timeout': 10,  # Prevent hanging connections
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": os.environ.get("DB_PORT", "5432"),
+        "CONN_MAX_AGE": 60,
+        "OPTIONS": {
+            "sslmode": "require",
+            "connect_timeout": 10,
+        },
+    }
 }
 
 # =========================
