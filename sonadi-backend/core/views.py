@@ -17,10 +17,16 @@ from .models import (
 )
 
 # Home Page View
+# Home Page View
 @cache_page(60 * 5)  # Cache for 5 minutes
 def home(request):
-    stats = HomepageStats.objects.first()
-    values = CoreValue.objects.filter(show_on_homepage=True)
+    try:
+        stats = HomepageStats.objects.first()
+        values = CoreValue.objects.filter(show_on_homepage=True)
+    except OperationalError:
+        stats = None
+        values = []
+
     return render(request, 'home.html', {'stats': stats, 'values': values})
 
 # About Page View
